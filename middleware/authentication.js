@@ -1,6 +1,6 @@
-const User = require('../models/User');
-const JWT = require('jsonwebtoken');
-const UnauthenticatedError = require('../errors/index.error');
+//const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const { UnauthenticatedError } = require('../errors/index.error');
 
 const auth = (req, res, next) => {
   //* check header
@@ -11,7 +11,7 @@ const auth = (req, res, next) => {
   const token = authHeader.split(' ')[1];
 
   try {
-    const payload = JWT.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
     //* attach the uset to the job routers
     req.user = { userId: payload.userId, name: payload.name };
     next();
