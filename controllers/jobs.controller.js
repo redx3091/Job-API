@@ -38,10 +38,11 @@ const updateJob = async (req, res) => {
     throw new BadRequestError(`Company or position fields cannot be empty`);
   }
 
-  const job = await Job.findByIdAndUpdate({
-    _id: jobid,
-    createdBy: userId
-  },
+  const job = await Job.findByIdAndUpdate(
+    {
+      _id: jobid,
+      createdBy: userId,
+    },
     req.body,
     { new: true, runValidators: true }
   );
@@ -58,7 +59,7 @@ const deleteJob = async (req, res) => {
 
   const job = await Job.findByIdAndRemove({
     _id: jobid,
-    createdBy: userId
+    createdBy: userId,
   });
   if (!job) {
     throw new NotFoundError(`No job with ${jobid}`);
@@ -73,5 +74,3 @@ module.exports = {
   updateJob,
   deleteJob,
 };
-
-//! 8:37:38
